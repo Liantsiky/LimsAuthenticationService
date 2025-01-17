@@ -1,0 +1,6 @@
+@LimsAuthenticationService_HostAddress = http://localhost:5042
+
+GET {{LimsAuthenticationService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
