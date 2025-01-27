@@ -11,6 +11,6 @@ public class Role
     [Column("designation")]
 
     public string Designation { get; set; }
-    public ICollection<UserRole> UserRoles { get; set; } // Many-to-many relationship with roles
+    public ICollection<UserRole>? UserRoles { get; set; } // Many-to-many relationship with roles
 
 }

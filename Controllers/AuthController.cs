@@ -57,15 +57,15 @@ public class AuthController : ControllerBase
                 .FirstAsync(u => u.Identifiant == userDto.Identifiant);
 
             // Map to the response DTO
-            RegisterDto responseDto = new RegisterDto
-            {
-                Identifiant = user.Identifiant,
-                Roles = user.UserRoles.Select(ur => ur.Role.Designation).ToList(),
-                Password = user.Password
-            };
+            // RegisterDto responseDto = new RegisterDto
+            // {
+            //     Identifiant = user.Identifiant,
+            //     Roles = user.UserRoles.Select(ur => ur.Role.Designation).ToList(),
+            //     Password = user.Password
+            // };
             return Ok(new ApiResponse
             {
-                Data = responseDto,
+                Data = null,
                 ViewBag = null,
                 IsSuccess = true,
                 Message = "Datas retrieved successfully.",

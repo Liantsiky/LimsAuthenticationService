@@ -20,7 +20,10 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 
 builder.Services.AddControllers();
 
+//Services for injection to controller
 builder.Services.AddScoped<IAuthService,AuthService>();
+builder.Services.AddScoped<IRoleService,RoleService>();
+
 
 var app = builder.Build();
 
@@ -37,7 +40,4 @@ app.MapControllers(); // This line is crucial !
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+
