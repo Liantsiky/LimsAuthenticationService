@@ -40,7 +40,7 @@ public class RoleController : ControllerBase
         Dictionary<string, object> response = new Dictionary<string, object>();
         int totalRoleRows = await _roleService.CountRoles();
         response["nbrPerPage"] = pageSize;
-        response["TotalCount"] = _roleService.CountRoles();
+        response["TotalCount"] = totalRoleRows;
         response["nbrLinks"] = Math.Ceiling((double)totalRoleRows / pageSize);
 
             response["position"] = position;
@@ -107,11 +107,13 @@ public class RoleController : ControllerBase
         
     }
 
+    //On ne doit pas supprimer un role
+
     // DELETE: api/role/5
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteRole(int id)
-    {
-        await _roleService.DeleteRole(id);
-        return NoContent();
-    }
+    // [HttpDelete("{id}")]
+    // public async Task<IActionResult> DeleteRole(int id)
+    // {
+    //     await _roleService.DeleteRole(id);
+    //     return NoContent();
+    // }
 }
