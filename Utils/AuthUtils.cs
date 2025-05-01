@@ -57,7 +57,7 @@ public class AuthUtils
     };
 
     // Add roles as claims
-    claims.AddRange(roles.Select(role => new Claim("roles", role)));
+    claims.AddRange(roles.Select(role => new Claim("role", role)));
 
     // Think to store the key in the environment
     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("L8jR5vH1aX3kZp9QoT2yW6e4UvYmNpA7T9fKdXrPoWyQvLXs"));

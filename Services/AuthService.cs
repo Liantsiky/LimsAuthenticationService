@@ -28,7 +28,8 @@ public class AuthService : IAuthService
             Utilisateur user = new Utilisateur
             {
                 Identifiant = userDto.Identifiant,
-                Password = hashedPassword
+                Password = hashedPassword,
+                IdDepartement = userDto.IdDepartement
             };
 
             // Add user to the database
@@ -37,20 +38,9 @@ public class AuthService : IAuthService
     
 
             // Handle roles
-            foreach (string roleName in userDto.Roles)
-            {
-                // Check if the role exists
-                Role role = await _context.Roles.FirstOrDefaultAsync(r => r.Designation == roleName);
-                if (role == null)
-                {
-                    // Create the role if it doesn't exist
-                    role = new Role { Designation = roleName };
-                    _context.Roles.Add(role);
-                    await _context.SaveChangesAsync();
-                }
-
-                // Assign the role to the user
-                _context.UserRoles.Add(new UserRole { IdUtilisateur = user.IdUtilisateur, IdRole = role.IdRole });
+            foreach (int idRoles in userDto.Roles)
+            { 
+                _context.UserRoles.Add(new UserRole { IdUtilisateur = user.IdUtilisateur, IdRole = idRoles });
             }
 
             // Save all changes
@@ -86,5 +76,21 @@ public class AuthService : IAuthService
         
         result = AuthUtils.GenerateToken(user,roles);
         return result;
+    }
+
+    public RegisterSuccessDto FromUtilisateurToRegisterSuccess(Utilisateur user)
+    {
+        List<Role> roles = new List<Role>();
+        foreach (UserRole userRole in user.UserRoles)
+        {
+            roles.Add(userRole.Role);
+        }
+        RegisterSuccessDto registerSuccess = new RegisterSuccessDto
+        {
+            Identifiant = user.Identifiant,
+            Roles = roles,
+            Departement = user.Departement
+        };
+        return registerSuccess;
     }
 }
