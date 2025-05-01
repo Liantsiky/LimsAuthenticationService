@@ -28,6 +28,12 @@ public class AuthDbContext : DbContext
             .HasOne(ur => ur.Role)
             .WithMany(r => r.UserRoles)
             .HasForeignKey(ur => ur.IdRole);
+
+        builder.Entity<Departement>()
+        .HasMany(u => u.Utilisateurs)
+        .WithOne(u => u.Departement)
+        .HasForeignKey(u => u.IdDepartement)
+        .HasPrincipalKey(u => u.IdDepartement);
     }
     
 }

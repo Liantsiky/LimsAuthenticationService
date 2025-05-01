@@ -12,10 +12,16 @@ public class Utilisateur
     public int IdUtilisateur { get; set; }
     [Column("identifiant")]
 
-    public string Identifiant { get; set; }
+    public required string Identifiant { get; set; }
     [Column("password")]
-    public string Password { get; set; }  // Hashed password
+    public required string Password { get; set; }  // Hashed password
     
-    public ICollection<UserRole> UserRoles { get; set; } // Many-to-many relationship with roles
+    public ICollection<UserRole>? UserRoles { get; set; } // Many-to-many relationship with roles
+
+    [Column("id_departement")]
+    public int IdDepartement { get; set;}
+    
+    [ForeignKey("IdDepartement")]
+    public Departement Departement { get; set;}
 
 }

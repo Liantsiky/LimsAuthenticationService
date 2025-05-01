@@ -49,23 +49,18 @@ public class AuthController : ControllerBase
         try
         {
             await _authService.RegisterUserAsync(userDto);
-            // Utilisateur user = await _context.Utilisateurs.FirstAsync(u => u.Identifiant == userDto.Identifiant);
-            
+           
             Utilisateur user = await _context.Utilisateurs
+                .Include(u => u.Departement)
                 .Include(u => u.UserRoles)
                 .ThenInclude(ur => ur.Role)
                 .FirstAsync(u => u.Identifiant == userDto.Identifiant);
-
-            // Map to the response DTO
-            // RegisterDto responseDto = new RegisterDto
-            // {
-            //     Identifiant = user.Identifiant,
-            //     Roles = user.UserRoles.Select(ur => ur.Role.Designation).ToList(),
-            //     Password = user.Password
-            // };
+            
+            RegisterSuccessDto registerSuccess = _authService.FromUtilisateurToRegisterSuccess(user);
+           
             return Ok(new ApiResponse
             {
-                Data = null,
+                Data = registerSuccess,
                 ViewBag = null,
                 IsSuccess = true,
                 Message = "Datas retrieved successfully.",

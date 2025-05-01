@@ -106,14 +106,4 @@ public class RoleController : ControllerBase
         });
         
     }
-
-    //On ne doit pas supprimer un role
-
-    // DELETE: api/role/5
-    // [HttpDelete("{id}")]
-    // public async Task<IActionResult> DeleteRole(int id)
-    // {
-    //     await _roleService.DeleteRole(id);
-    //     return NoContent();
-    // }
 }
